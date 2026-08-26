@@ -1,17 +1,36 @@
 ---
 name: douyin-aigc-sexy
-description: '抖音/快手风格性感写真生成器，强调展露肌肤、突出身材曲线，支持多种风格（古风、赛博朋克、韩系、港风等）的性感化版本'
+description: '抖音/快手风格性感写真生成器，写实真人摄影风格，网红级精致面容和细腻肤质，18-30岁年轻女性，支持史诗仙侠+都市白领融合，强调展露肌肤、突出身材曲线，身材控制为丰腴/微微胖。'
 metadata:
-  argument-hint: '[风格] [图片/视频]'
+  argument-hint: '[风格选项] 或 自定义要求'
 ---
 
-# Douyin AIGC 性感写真风格生成器（修正版）
+# Douyin AIGC 性感写真风格生成器（写实真人版）
 
 ## 核心定位
 性感、妩媚、吸引眼球。无论何种服装风格，都强调展露肌肤、突出身材曲线。
+风格：**写实真人摄影**（非3D动漫），网红级精致面容，细腻光滑肤质。
 
 ## 触发条件
 当用户请求生成抖音/快手风格图片或视频时触发，自动应用性感路线。
+
+## 默认参数（无参数输入时）
+- **风格**：写实真人摄影（realistic photography style）
+- **肤质**：网红级精致面容，flawless porcelain skin，smooth glowing complexion，perfect skin texture，no rough skin
+- **年龄**：18-30岁年轻女性
+- **身材**：丰腴/微微胖（plump figure），非肥胖
+- 无过度磨皮（保留真实皮肤质感）
+- 史诗级奔放仙侠氛围感
+- 短款或高开叉组合
+- 衣长最短可到大腿根部
+- 行动时完全不受面料牵绊
+- 可融入现代都市丽人白领服饰元素
+- 可添加现代职业服饰元素包括内衣模特
+
+## 身材控制参数（重要）
+- **允许使用**：plump figure（丰腴）、voluptuous（丰满）、curvy figure（曲线美）、full-figured（丰满身材）、healthy plump（健康丰腴）、slightly chubby（微微胖）
+- **禁止使用**：overweight（超重）、obese（肥胖）、fat（胖）
+- 身材描述关键词：voluptuous、curvy、full-figured、healthy plump
 
 ## 可用风格列表（性感化调整）
 
@@ -42,46 +61,97 @@ metadata:
 | `日系胶片·性感` | 胶片感+清凉夏日装 | 清新中的性感 |
 | `国风傣族·性感` | 傣族服饰+紧身短裙+露肩 | 民族风性感 |
 | `西域琵琶精·性感` | 红色舞衣+露腰设计+西域风情 | 神秘冷艳性感 |
+| `史诗仙侠·性感` | 奔放仙侠+短裙高开叉+都市白领融合 | 写实真人+无过度磨皮+自由行动+丰腴身材 |
+
+### 都市白领融合风格
+| 风格 | 描述 | 性感元素 |
+|------|------|----------|
+| `职场精英·性感` | 职业装+短裙/开叉+高跟鞋 | 干练中透着性感 |
+| `内衣模特·性感` | 内衣/睡衣+都市背景 | 私密感+职业感融合 |
+| `仙侠白领·融合` | 仙侠元素+现代办公场景 | 古风仙气+都市白领 |
 
 ## 执行流程
 
 ### 第一步：确认风格
 如果用户没有指定风格，展示上面的风格列表让用户选择。如果用户指定了风格，直接进入对应流程。
+如果用户只输入 `$douyin-aigc-sexy` 无参数，使用默认参数（史诗仙侠+都市白领融合）。
 
 ### 第二步：构建 Prompt（性感化核心）
 
-**图片 Prompt 模板**：
+**写实真人 + 网红肤质 Prompt 模板**：
 ```
-[风格关键词], [性感主题描述], [环境/背景], [光线描述], [构图], 
-sexy, alluring, curvy figure, skin-revealing, alluring pose, 
+18-30 years old young beautiful Chinese woman,
+realistic photography style,
+网红级精致面容,
+flawless porcelain skin, smooth glowing complexion,
+perfect skin texture, no rough skin,
+beautiful delicate facial features, large expressive eyes,
+small nose, pouty lips, youthful radiant skin,
+[风格关键词], [性感主题描述], [环境/背景], [光线描述], [构图],
+plump voluptuous figure, curvy body,
+sexy, alluring, skin-revealing, alluring pose,
 high quality, detailed, 720p, TikTok viral aesthetic
 ```
 
+**仙侠+都市白领融合 Prompt 模板**：
+```
+18-30 years old young beautiful Chinese woman,
+realistic photography style,
+网红级精致面容,
+flawless porcelain skin, smooth glowing complexion,
+perfect skin texture, no rough skin,
+beautiful delicate facial features, large expressive eyes,
+small nose, pouty lips, youthful radiant skin,
+epic xianxia atmosphere, unrestrained fantasy aesthetic,
+short hemline, high-slit design, thigh-length outfit,
+free movement, no fabric restriction,
+modern urban白领 elements, corporate fashion,
+plump voluptuous figure, curvy body,
+sexy, alluring, skin-revealing,
+high quality, 720p, viral TikTok aesthetic
+```
+
+**身材控制关键词**：
+- **允许使用**：plump figure（丰腴）、voluptuous（丰满）、curvy figure（曲线美）、full-figured（丰满身材）、healthy plump（健康丰腴）、slightly chubby（微微胖）
+- **禁止使用**：overweight、obese、fat、excessive weight
+
 **性感化元素关键词库**：
-- **服装**：sheer fabric（薄纱）、backless（露背）、high-slit（高开叉）、strapless（无肩带）、crop top（露脐）、tight-fitting（紧身）、see-through（透视）、off-shoulder（露肩）
-- **身材**：curvy figure、slender waist、long legs、attractive pose
-- **肌肤**：bare shoulders、exposed back、smooth skin、glowing skin
-- **氛围**：alluring、seductive、mysterious、elegant sensual
+- **身材**：plump figure（丰腴）、voluptuous curves（丰满曲线）、curvy figure（曲线美）、full-figured（丰满身材）、healthy plump（健康丰腴）、slender waist（纤细腰身）、long legs（长腿）
+- **服装**：sheer fabric（薄纱）、backless（露背）、high-slit（高开叉）、strapless（无肩带）、crop top（露脐）、short hemline（短款）、thigh-length（大腿长度）、tight-fitting（紧身）、see-through（透视）、off-shoulder（露肩）、business attire（职业装）、lingerie model（内衣模特）
+- **肌肤**：bare shoulders（露肩）、exposed back（露背）、smooth skin（光滑肌肤）、glowing skin（光泽肌肤）、natural skin texture（自然肤质）
+- **氛围**：alluring（魅惑）、seductive（诱惑）、mysterious（神秘）、elegant sensual（优雅性感）、epic fantasy（史诗幻想）
+- **仙侠元素**：xianxia、immortal、floating clouds、ethereal、flowing ribbons
+- **都市白领**：urban professional、corporate fashion、modern workplace、business chic
 
 **各风格专属性感化 Prompt 片段**：
 
-- **古风变装·性感**: `ancient Chinese hanfu beauty, sheer silk robes, backless design, high-slit skirt, jade ornaments, cherry blossoms, soft traditional lighting, elegant yet sensual`
-- **赛博发光女友**: `cyberpunk neon glow, LED light strips on tight outfit, glowing accessories, neon-lit urban background, alluring dancing pose, futuristic sexy aesthetic, 8K cinematic`
-- **纯欲甜妹**: `sweet innocent girl, big expressive eyes, pink blush, soft pink lips, youthful beauty, strapless dress, exposed shoulders, gentle smile, warm soft lighting, sweet yet alluring`
-- **韩系清冷·性感**: `Korean elegant beauty, clean minimal aesthetic, pale flawless skin, natural nude makeup, long sleek hair, form-fitting dress, exposed collarbones, soft diffused lighting, high fashion editorial, sexy minimalism`
-- **港风复古明艳**: `1990s Hong Kong glamour style, bold red lips, voluminous wavy hair, warm film grain, high-slit qipao, backless design, golden hour lighting, nostalgic cinematic mood, sultry elegance`
-- **翡翠珠韵千金**: `Chinese jade maiden, elegant new Chinese style, sheer fabric layers, jade hairpin and pearl earrings, soft garden courtyard, gentle warm lighting, refined traditional beauty, subtle sensual`
-- **异域风情**: `Indian bridal style, rich silk sari, colorful gemstone jewelry, intricate henna details, warm golden lighting, bare midriff, exotic elegant atmosphere, captivating beauty`
-- **黑金古风**: `black and crimson ancient Chinese dress, golden shoulder ornaments, floating petals, dramatic cinematic lighting, backless design, mysterious elegant mood, dark sensual`
-- **Old Money老钱**: `quiet luxury aesthetic, neutral cream and sand tones, cashmere sweater, natural window light, form-fitting silhouette, understated elegance, timeless sophisticated portrait, subtle sexy`
-- **希腊神话女神**: `Greek mythology goddess, flowing white silk robes, golden hour backlighting, cherry blossom petals, marble columns, ethereal divine glow, Botticelli inspired, translucent fabric, sensual divine beauty`
-- **日系胶片少女**: `Japanese film photography style, natural outdoor setting, soft film grain, fresh natural makeup, gentle breeze, summer outfit, nostalgic summer vibe, fresh yet alluring`
-- **国风傣族**: `Dai ethnic minority costume, colorful floral patterns, beaded jewelry, flower basket, tropical garden, vibrant ethnic aesthetic, form-fitting skirt, alluring traditional beauty`
-- **西域琵琶精**: `red dancing costume, pipa instrument, exotic Western Regions style, dark mystical cave background, dramatic lighting, mysterious beautiful aura, seductive performance`
+- **古风变装·性感**: `ancient Chinese hanfu beauty, sheer silk robes, backless design, high-slit skirt, jade ornaments, cherry blossoms, soft traditional lighting, elegant yet sensual, plump voluptuous figure`
+- **赛博发光女友**: `cyberpunk neon glow, LED light strips on tight outfit, glowing accessories, neon-lit urban background, alluring dancing pose, futuristic sexy aesthetic, 8K cinematic, plump curvy figure`
+- **纯欲甜妹**: `sweet innocent girl, big expressive eyes, pink blush, soft pink lips, youthful beauty, strapless dress, exposed shoulders, gentle smile, warm soft lighting, sweet yet alluring, plump curves`
+- **韩系清冷·性感**: `Korean elegant beauty, clean minimal aesthetic, pale flawless skin, natural nude makeup, long sleek hair, form-fitting dress, exposed collarbones, soft diffused lighting, high fashion editorial, sexy minimalism, plump figure`
+- **港风复古明艳**: `1990s Hong Kong glamour style, bold red lips, voluminous wavy hair, warm film grain, high-slit qipao, backless design, golden hour lighting, nostalgic cinematic mood, sultry elegance, plump voluptuous body`
+- **翡翠珠韵千金**: `Chinese jade maiden, elegant new Chinese style, sheer fabric layers, jade hairpin and pearl earrings, soft garden courtyard, gentle warm lighting, refined traditional beauty, subtle sensual, plump figure`
+- **异域风情**: `Indian bridal style, rich silk sari, colorful gemstone jewelry, intricate henna details, warm golden lighting, bare midriff, exotic elegant atmosphere, captivating beauty, plump curves`
+- **黑金古风**: `black and crimson ancient Chinese dress, golden shoulder ornaments, floating petals, dramatic cinematic lighting, backless design, mysterious elegant mood, dark sensual, plump voluptuous figure`
+- **Old Money老钱**: `quiet luxury aesthetic, neutral cream and sand tones, cashmere sweater, natural window light, form-fitting silhouette, understated elegance, timeless sophisticated portrait, subtle sexy, plump figure`
+- **希腊神话女神**: `Greek mythology goddess, flowing white silk robes, golden hour backlighting, cherry blossom petals, marble columns, ethereal divine glow, Botticelli inspired, translucent fabric, sensual divine beauty, plump voluptuous curves`
+- **日系胶片少女**: `Japanese film photography style, natural outdoor setting, soft film grain, fresh natural makeup, gentle breeze, summer outfit, nostalgic summer vibe, fresh yet alluring, plump figure`
+- **国风傣族**: `Dai ethnic minority costume, colorful floral patterns, beaded jewelry, flower basket, tropical garden, vibrant ethnic aesthetic, form-fitting skirt, alluring traditional beauty, plump curves`
+- **西域琵琶精**: `red dancing costume, pipa instrument, exotic Western Regions style, dark mystical cave background, dramatic lighting, mysterious beautiful aura, seductive performance, plump voluptuous figure`
+- **史诗仙侠·性感**: `epic xianxia immortal beauty, unrestrained fantasy aesthetic, sheer silk short dress, high-slit thigh-length skirt, flowing ribbons, floating clouds, natural skin texture, no over-smoothing, dramatic cinematic lighting, alluring pose, plump voluptuous figure, curvy body, sensual yet powerful`
+- **职场精英·性感**: `urban professional beauty, modern corporate fashion, short business skirt, high-slit design, exposed collarbones, natural skin texture, no over-smoothing, confident alluring pose, office lighting, sexy career woman, plump figure`
+- **内衣模特·性感**: `lingerie model aesthetic, modern corporate background, intimate apparel, sheer fabric, natural skin texture, no over-smoothing, alluring pose, professional lighting, sexy yet sophisticated, plump voluptuous curves`
+- **仙侠白领·融合**: `xianxia immortal in modern workplace, ethereal short dress, high-slit design, natural skin texture, no over-smoothing, floating clouds meets office building, alluring pose, fantasy meets reality, sexy corporate fairy, plump figure`
 
 **视频 Prompt 模板**（含镜头运动）：
 ```
-[风格关键词], [性感主题描述], [动作/动态], [镜头运动描述], 
+18-30 years old young beautiful Chinese woman,
+realistic photography style,
+网红级精致面容,
+flawless porcelain skin, smooth glowing complexion,
+perfect skin texture, no rough skin,
+[风格关键词], [性感主题描述], [动作/动态], [镜头运动描述],
+plump voluptuous figure, curvy body,
 sexy, alluring, viral video style, 720p
 ```
 
@@ -112,7 +182,15 @@ sexy, alluring, viral video style, 720p
 
 1. **抖音竖屏优先**：ratio 统一使用 `9:16`
 2. **视频不超过 10 秒**：num_frames 控制
-3. **性感核心**：无论何种服装风格，强调展露肌肤、突出身材曲线
-4. **Prompt 用英文**：Agnes 模型对英文 prompt 理解更好
-5. **风格关键词必须嵌入 prompt**
-6. **内容合规**：保持平台规范，性感但不违规
+3. **写实真人风格**：必须使用 `realistic photography style`，非3D动漫
+4. **网红级肤质**：必须包含 `flawless porcelain skin, smooth glowing complexion, perfect skin texture, no rough skin`
+5. **年龄控制**：18-30岁年轻女性
+6. **性感核心**：无论何种服装风格，强调展露肌肤、突出身材曲线
+7. **Prompt 用英文**：Agnes 模型对英文 prompt 理解更好
+8. **风格关键词必须嵌入 prompt**
+9. **内容合规**：保持平台规范，性感但不违规
+10. **无过度磨皮**：始终保留自然皮肤质感
+11. **衣长最短到大腿根部**：确保短款设计
+12. **自由行动**：设计需考虑行动不受面料牵绊
+13. **都市白领融合**：可融入现代职业服饰元素
+14. **身材控制**：使用 plump/voluptuous/curvy，禁止使用 overweight/obese/fat
